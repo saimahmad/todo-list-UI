@@ -1,11 +1,22 @@
-<div fxLayout="row" fxLayoutAlign="center">
+ <div fxLayout="row" fxLayoutAlign="center" class="mt-15">
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a region</mat-label>
+    <mat-select [(ngModel)]="regionValue" (selectionChange)="regionSelected()">
+      <mat-option value="North">North</mat-option>
+      <mat-option value="South">South</mat-option>
+      <mat-option value="East">East</mat-option>
+      <mat-option value="West">West</mat-option>
+      <mat-option value="All">All</mat-option>
+    </mat-select>
+  </mat-form-field>
+ </div>
+ <div fxLayout="row" fxLayoutAlign="center">
   <div fxFlex="80">
         <canvas baseChart
                 [datasets]="barChartData"
                 [labels]="mbarChartLabels"
                 [options]="barChartOptions"
                 [colors]="barChartColors"
-                [legend]="barChartLegend"
                 [chartType]="'bar'"
             ></canvas>
   </div>

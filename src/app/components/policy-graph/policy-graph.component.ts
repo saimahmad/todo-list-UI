@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { PolicyService } from '../policy.service';
 
 @Component({
   selector: 'app-policy-graph',
   templateUrl: './policy-graph.component.html',
-  styleUrls: ['./policy-graph.component.css']
+  styleUrls: ['./policy-graph.component.css'],
 })
 export class PolicyGraphComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  regionValue = "All";
   public barChartOptions:any = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -19,19 +16,10 @@ export class PolicyGraphComponent implements OnInit {
     maintainAspectRatio: false 
   };
 
-    public mbarChartLabels:string[] = ['2012', '2013', '2014', '2015', '2016', '2017', '2018'];
-    public barChartType:string = 'bar';
+    public mbarChartLabels:string[] = ['Jan.','Feb.','Mar.','Apr.','May','Jun.','Jul.','Aug.','Sep.','Oct.','Nov.','Dec.'];
     public barChartLegend:boolean = true;
   
     public barChartColors:Array<any> = [
-    // {
-    //   backgroundColor: 'rgba(105,159,177,0.2)',
-    //   borderColor: 'rgba(105,159,177,1)',
-    //   pointBackgroundColor: 'rgba(105,159,177,1)',
-    //   pointBorderColor: '#fafafa',
-    //   pointHoverBackgroundColor: '#fafafa',
-    //   pointHoverBorderColor: 'rgba(105,159,177)'
-    // },
     { 
       backgroundColor: 'rgba(77,20,96,0.3)',
       borderColor: 'rgba(77,20,96,1)',
@@ -42,31 +30,62 @@ export class PolicyGraphComponent implements OnInit {
     }
   ];
     public barChartData:any[] = [
-      {data: [55, 60, 75, 82, 56, 62, 80], label: 'Company A'},
-      // {data: [58, 55, 60, 79, 66, 57, 90], label: 'Company B'}
+      // {data: [55, 60, 75, 82, 56, 62, 80], label: 'Company A'},
     ];
+
+//    months = ['Jan.','Feb.','Mar.','Apr.','May','Jun.','Jul.','Aug.','Sep.','Oct.','Nov.','Dec.']
+
+    constructor(private policyService: PolicyService) { }
+
+    ngOnInit(): void {
+      this.getMonthlyData(this.regionValue)
+    }
+
+    getMonthlyData(value: string) {
+      this.policyService.getMonthlyPolicyData(value).subscribe(data => {
+        this.populateGraph(data)
+      },(error) => {
+        console.log(error)
+      })
+    }
+
+    populateGraph(data: any) {
+      let newData: any = [];
+      for(let i = 0; i<12; i++) {
+        newData.push(0)
+      }
+      data.forEach((item: any) => {
+        newData[item.month-1] = item.count
+      })
+      this.barChartData[0].data = newData;
+    }
+
+    regionSelected() {
+      this.getMonthlyData(this.regionValue)
+    }
+  
   
     // events
-    public chartClicked(e:any):void {
-      console.log(e);
-    }
+    // public chartClicked(e:any):void {
+    //   console.log(e);
+    // }
   
-    public chartHovered(e:any):void {
-      console.log(e);
-    }
+    // public chartHovered(e:any):void {
+    //   console.log(e);
+    // }
   
-    public randomize():void {
-      let data = [
-        Math.round(Math.random() * 100),
-        Math.round(Math.random() * 100),
-        Math.round(Math.random() * 100),
-        (Math.random() * 100),
-        Math.round(Math.random() * 100),
-        (Math.random() * 100),
-        Math.round(Math.random() * 100)];
-      let clone = JSON.parse(JSON.stringify(this.barChartData));
-      clone[0].data = data;
-      this.barChartData = clone;
-    }
+    // public randomize():void {
+    //   let data = [
+    //     Math.round(Math.random() * 100),
+    //     Math.round(Math.random() * 100),
+    //     Math.round(Math.random() * 100),
+    //     (Math.random() * 100),
+    //     Math.round(Math.random() * 100),
+    //     (Math.random() * 100),
+    //     Math.round(Math.random() * 100)];
+    //   let clone = JSON.parse(JSON.stringify(this.barChartData));
+    //   clone[0].data = data;
+    //   this.barChartData = clone;
+    // }
 
 }
