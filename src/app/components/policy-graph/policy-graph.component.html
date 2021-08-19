@@ -1,4 +1,4 @@
- <div fxLayout="row" fxLayoutAlign="center" class="mt-15">
+ <div fxLayout="row" fxLayoutAlign="center" class="graph-header-row">
   <mat-form-field appearance="fill">
     <mat-label>Choose a region</mat-label>
     <mat-select [(ngModel)]="regionValue" (selectionChange)="regionSelected()">
@@ -12,7 +12,8 @@
  </div>
  <div fxLayout="row" fxLayoutAlign="center">
   <div fxFlex="80">
-        <canvas baseChart
+        <canvas  baseChart
+                [style.height.px]="'400'"
                 [datasets]="barChartData"
                 [labels]="mbarChartLabels"
                 [options]="barChartOptions"

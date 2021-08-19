@@ -16,6 +16,7 @@ export class PolicyDetailsComponent implements OnInit {
   policyList: number[] = [];
   policyForm: FormGroup | undefined;
   dateOfPurchase: string = "";
+  isEdit: boolean = false;
   constructor(private policyService: PolicyService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -39,6 +40,7 @@ export class PolicyDetailsComponent implements OnInit {
 
   getPolicyDetails() {
     this.policyService.getPolicyDetails(Number(this.policy_id)).subscribe((data:any) => {
+      this.customer_id = data.customer_id;
       this.dateOfPurchase = data.date_of_purchase.split("T")[0].split("-").reverse().join("-");
       this.policyForm?.get("date_of_purchase")?.patchValue(data.date_of_purchase)
       this.policyForm?.get("fuel")?.patchValue(data.fuel)
@@ -62,6 +64,8 @@ export class PolicyDetailsComponent implements OnInit {
   getPolicyList() {
     this.policyService.getPolicyList(Number(this.customer_id)).subscribe((data:any) => {
       this.policyList = data.map((item:any) => item.policy_id)
+      this.policy_id = this.policyList[0];
+      this.getPolicyDetails()
     },(error) => {
       this.openErrorSnackbar(error.error.error)
       console.log(error)
@@ -70,8 +74,10 @@ export class PolicyDetailsComponent implements OnInit {
 
   savePolicy() {
     let payload = this.policyForm?.value;
+    payload.policy_id = this.policy_id;
+    payload.customer_id = this.customer_id
     this.policyService.savePolicyDetails(payload).subscribe((data:any) => {
-
+      this.openSuccessSnackbar(data.msg)
     },error => {
       console.log(error)
     })
@@ -82,7 +88,21 @@ export class PolicyDetailsComponent implements OnInit {
       duration: 2000,
       horizontalPosition: "center",
       verticalPosition: "bottom",
+      panelClass: ["red-snackbar"]
     });
+  }
+
+  openSuccessSnackbar(msg: string) {
+    this.snackBar.open(msg, '', {
+      duration: 2000,
+      horizontalPosition: "center",
+      verticalPosition: "bottom",
+      panelClass: ["green-snackbar"]
+    });
+  }
+
+  toggleEdit() {
+    this.isEdit = !(this.isEdit)
   }
 
 }

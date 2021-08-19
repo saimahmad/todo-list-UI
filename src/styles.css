@@ -24,9 +24,33 @@ body {
   cursor: pointer;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.ico-disabled{
+  opacity: 0.4;
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 /*snack-bar*/
 .mat-snack-bar-container {
   color: rgb(252 249 249) !important;
-  background: #de4f4fd6 !important;
-  margin: 23vh !important;
+  margin: 5vh !important;
+}
+
+.red-snackbar {
+  background: #de0b0bd6 !important;
+}
+
+.green-snackbar {
+  background: #1a902fd6 !important;
 }

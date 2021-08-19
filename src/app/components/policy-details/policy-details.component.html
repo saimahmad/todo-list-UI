@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutGap="15px">
+<div fxLayout="column" fxLayoutGap="15px" class="mt-15">
   <div fxLyaout="row" fxLayoutGap="20px" fxLayoutAlign="center">
     <div>Search Policy with :</div>
     <div>
@@ -8,11 +8,11 @@
       </mat-radio-group>
     </div>
   </div>
-  <div *ngIf="searchType == 'p'" fxLayout="row" fxLayoutAlign="center">
+  <div [style.height.px]="'75'" *ngIf="searchType == 'p'" fxLayout="row" fxLayoutAlign="center">
     <mat-form-field>
       <mat-label>Policy ID</mat-label>
       <input type="number" matInput [(ngModel)]="policy_id" />
-      <mat-icon matSuffix class="cursor-pointer" (click)="getPolicyDetails()">search</mat-icon>
+      <mat-icon matSuffix [ngClass]="{'ico-disabled':!(policy_id)}" class="cursor-pointer" (click)="getPolicyDetails()">search</mat-icon>
     </mat-form-field>
   </div>
   <div
@@ -20,15 +20,16 @@
     fxLayout="row"
     fxLayoutGap="15px"
     fxLayoutAlign="center"
+    [style.height.px]="'75'"
   >
     <mat-form-field>
       <mat-label>Customer ID</mat-label>
       <input type="number" matInput [(ngModel)]="customer_id" />
-      <mat-icon matSuffix class="cursor-pointer" (click)="getPolicyList()"
+      <mat-icon [ngClass]="{'ico-disabled':!(customer_id)}" matSuffix class="cursor-pointer" (click)="getPolicyList()"
         >search</mat-icon
       >
     </mat-form-field>
-    <mat-form-field appearance="fill">
+    <mat-form-field *ngIf="policy_id" appearance="fill">
       <mat-label>Policy ID</mat-label>
       <mat-select
         [(ngModel)]="policy_id"
@@ -48,7 +49,7 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Fuel</mat-label>
-            <mat-select formControlName="fuel" disabled>
+            <mat-select formControlName="fuel" [disabled]="!isEdit">
               <mat-option value="CNG">CNG</mat-option>
               <mat-option value="Petrol">Petrol</mat-option>
               <mat-option value="Diesel">Diesel</mat-option>
@@ -56,7 +57,7 @@
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Vehicle Segment</mat-label>
-            <mat-select formControlName="vehicle_segment">
+            <mat-select formControlName="vehicle_segment" [disabled]="!isEdit">
               <mat-option value="A">A</mat-option>
               <mat-option value="B">B</mat-option>
               <mat-option value="C">C</mat-option>
@@ -66,18 +67,18 @@
    <div  fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="center">
     <mat-form-field>
         <mat-label>Premium</mat-label>
-        <input type="number" matInput formControlName="premium"/>
+        <input type="number" matInput formControlName="premium" [disabled]="!isEdit"/>
       </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>Bodily Injury Liability</mat-label>
-        <mat-select formControlName="bodily_injury_liability">
+        <mat-select formControlName="bodily_injury_liability" [disabled]="!isEdit">
           <mat-option [value]="1">Yes</mat-option>
           <mat-option [value]="0">No</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Personal Injury Protection</mat-label>
-        <mat-select formControlName="personal_injury_protection">
+        <mat-select formControlName="personal_injury_protection" [disabled]="!isEdit">
           <mat-option [value]="1">Yes</mat-option>
           <mat-option [value]="0">No</mat-option>
         </mat-select>
@@ -86,21 +87,21 @@
    <div  fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="center">
     <mat-form-field appearance="fill">
         <mat-label>Property Damage Liability</mat-label>
-        <mat-select formControlName="property_damage_liability">
+        <mat-select formControlName="property_damage_liability" [disabled]="!isEdit">
           <mat-option [value]="1">Yes</mat-option>
           <mat-option [value]="0">No</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Collision</mat-label>
-        <mat-select formControlName="collision">
+        <mat-select formControlName="collision" [disabled]="!isEdit">
           <mat-option [value]="1">Yes</mat-option>
           <mat-option [value]="0">No</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Comprehensive</mat-label>
-        <mat-select formControlName="comprehensive">
+        <mat-select formControlName="comprehensive" [disabled]="!isEdit">
           <mat-option [value]="1">Yes</mat-option>
           <mat-option [value]="0">No</mat-option>
         </mat-select>
@@ -109,7 +110,7 @@
    <div  fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="center">
     <mat-form-field appearance="fill">
         <mat-label>Customer Gender</mat-label>
-        <mat-select formControlName="customer_gender">
+        <mat-select formControlName="customer_gender" [disabled]="!isEdit">
           <mat-option value="Male">Male</mat-option>
           <mat-option value="Female">Female</mat-option>
           <mat-option value="Other">Other</mat-option>
@@ -117,7 +118,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Customer Income Group</mat-label>
-        <mat-select formControlName="customer_income_group">
+        <mat-select formControlName="customer_income_group" [disabled]="!isEdit">
             <mat-option value="0- $25K">0- $25K</mat-option>
             <mat-option value="$25-$70K">$25-$70K</mat-option>
             <mat-option value="$70K">>$70K</mat-option>
@@ -125,7 +126,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Customer Region</mat-label>
-        <mat-select formControlName="customer_region">
+        <mat-select formControlName="customer_region" [disabled]="!isEdit">
           <mat-option value="North">North</mat-option>
           <mat-option value="South">South</mat-option>
           <mat-option value="East">East</mat-option>
@@ -136,15 +137,15 @@
    <div  fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="center">
     <mat-form-field appearance="fill">
         <mat-label>Customer Martial Status</mat-label>
-        <mat-select formControlName="customer_martial_status">
+        <mat-select formControlName="customer_martial_status" [disabled]="!isEdit">
           <mat-option [value]="1">Married</mat-option>
           <mat-option [value]="0">Unmarried</mat-option>
         </mat-select>
       </mat-form-field>
    </div>
    <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="center">
-       <button mat-flat-button color="warn">Edit</button>
-       <button mat-flat-button color="primary" (click)="savePolicy()">Save</button>
+       <button mat-flat-button color="warn" (click)='toggleEdit()'>{{isEdit?"Cancel":"Edit"}}</button>
+       <button mat-flat-button color="primary" (click)="savePolicy()" [disabled]="!isEdit">Save</button>
    </div>
   </form>
 </div>

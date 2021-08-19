@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 import { LandingPageComponent } from './components/landing-page.component';
@@ -41,7 +42,8 @@ import { PolicyService } from './components/policy.service';
     MatIconModule,
     MatButtonModule,
     MatRadioModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTabsModule
   ],
   providers: [PolicyService],
   bootstrap: [AppComponent]
