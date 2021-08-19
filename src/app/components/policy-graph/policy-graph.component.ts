@@ -41,6 +41,7 @@ export class PolicyGraphComponent implements OnInit {
       this.getMonthlyData(this.regionValue)
     }
 
+    //to get the monthly region wise data
     getMonthlyData(value: string) {
       this.policyService.getMonthlyPolicyData(value).subscribe(data => {
         this.populateGraph(data)
@@ -49,6 +50,7 @@ export class PolicyGraphComponent implements OnInit {
       })
     }
 
+    //to update value of the graph
     populateGraph(data: any) {
       let newData: any = [];
       for(let i = 0; i<12; i++) {
@@ -64,28 +66,5 @@ export class PolicyGraphComponent implements OnInit {
       this.getMonthlyData(this.regionValue)
     }
   
-  
-    // events
-    // public chartClicked(e:any):void {
-    //   console.log(e);
-    // }
-  
-    // public chartHovered(e:any):void {
-    //   console.log(e);
-    // }
-  
-    // public randomize():void {
-    //   let data = [
-    //     Math.round(Math.random() * 100),
-    //     Math.round(Math.random() * 100),
-    //     Math.round(Math.random() * 100),
-    //     (Math.random() * 100),
-    //     Math.round(Math.random() * 100),
-    //     (Math.random() * 100),
-    //     Math.round(Math.random() * 100)];
-    //   let clone = JSON.parse(JSON.stringify(this.barChartData));
-    //   clone[0].data = data;
-    //   this.barChartData = clone;
-    // }
 
 }

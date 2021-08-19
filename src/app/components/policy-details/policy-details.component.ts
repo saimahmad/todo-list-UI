@@ -17,6 +17,7 @@ export class PolicyDetailsComponent implements OnInit {
   policyForm: FormGroup | undefined;
   dateOfPurchase: string = "";
   isEdit: boolean = false;
+  haveData: boolean = false;
   constructor(private policyService: PolicyService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -37,8 +38,8 @@ export class PolicyDetailsComponent implements OnInit {
     })
   }
 
-
-  getPolicyDetails() {
+//to get the policy details once policy id is selected
+  getPolicyDetails() {  
     this.policyService.getPolicyDetails(Number(this.policy_id)).subscribe((data:any) => {
       this.customer_id = data.customer_id;
       this.dateOfPurchase = data.date_of_purchase.split("T")[0].split("-").reverse().join("-");
@@ -55,12 +56,14 @@ export class PolicyDetailsComponent implements OnInit {
       this.policyForm?.get("customer_income_group")?.patchValue(data.customer_income_group)
       this.policyForm?.get("customer_region")?.patchValue(data.customer_region)
       this.policyForm?.get("customer_martial_status")?.patchValue(data.customer_martial_status)
+      this.haveData = true;
     },error => {
       console.log(error)
       this.openErrorSnackbar(error.error.error)
     })
   }
 
+  //to get the policy list according to selected customer_id
   getPolicyList() {
     this.policyService.getPolicyList(Number(this.customer_id)).subscribe((data:any) => {
       this.policyList = data.map((item:any) => item.policy_id)
@@ -72,6 +75,7 @@ export class PolicyDetailsComponent implements OnInit {
     })
   }
 
+  //to update policy
   savePolicy() {
     let payload = this.policyForm?.value;
     payload.policy_id = this.policy_id;
@@ -81,8 +85,10 @@ export class PolicyDetailsComponent implements OnInit {
     },error => {
       console.log(error)
     })
+    this.isEdit = false;
   }
 
+  //to show error popup
   openErrorSnackbar(error: string) {
     this.snackBar.open(error, '', {
       duration: 2000,
@@ -92,6 +98,7 @@ export class PolicyDetailsComponent implements OnInit {
     });
   }
 
+  //to show success popup
   openSuccessSnackbar(msg: string) {
     this.snackBar.open(msg, '', {
       duration: 2000,
@@ -101,6 +108,7 @@ export class PolicyDetailsComponent implements OnInit {
     });
   }
 
+  //to toggle between edit and view mode
   toggleEdit() {
     this.isEdit = !(this.isEdit)
   }

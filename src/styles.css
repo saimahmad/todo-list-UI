@@ -19,6 +19,10 @@ body {
   margin-right: 15px;
 }
 
+.mt-30 {
+  margin-top: 30px
+}
+
 /* others */
 .mat-form-field-suffix {
   cursor: pointer;
@@ -34,6 +38,11 @@ input::-webkit-inner-spin-button {
   opacity: 0.4;
   pointer-events: none !important;
   cursor: default !important;
+}
+
+.disabled {
+  opacity: 0.6;
+  pointer-events: none !important;
 }
 
 /* Firefox */
