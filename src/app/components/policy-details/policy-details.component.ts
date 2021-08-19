@@ -82,10 +82,12 @@ export class PolicyDetailsComponent implements OnInit {
     payload.customer_id = this.customer_id
     this.policyService.savePolicyDetails(payload).subscribe((data:any) => {
       this.openSuccessSnackbar(data.msg)
-    },error => {
+      this.isEdit = false;
+      this.getPolicyDetails();
+    },(error) => {
+      this.openErrorSnackbar(error.error.error)
       console.log(error)
     })
-    this.isEdit = false;
   }
 
   //to show error popup
@@ -110,6 +112,7 @@ export class PolicyDetailsComponent implements OnInit {
 
   //to toggle between edit and view mode
   toggleEdit() {
+    if(this.isEdit) this.getPolicyDetails();
     this.isEdit = !(this.isEdit)
   }
 
