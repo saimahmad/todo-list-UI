@@ -1,0 +1,20 @@
+.login-signup .title-text {
+    letter-spacing: 5px;
+  }
+
+  
+.login-signup.login-fields-wrapper {
+    padding: 70px;
+    height: 100%;
+    background-color: var(--color-white);
+    z-index: 9;
+  }
+
+  .login-signup .error-text {
+    position: absolute;
+    color: red;
+    bottom: -20px;
+    width: 100%;
+    left: 0;
+    font-size: 10px;
+  }

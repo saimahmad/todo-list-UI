@@ -1,0 +1,86 @@
+<div
+  fxLayout="column"
+  fxLayoutAlign="space-between"
+  class="login-signup login-fields-wrapper"
+  fxLayoutGap="20px"
+>
+  <div fxLayout="column" fxLayoutGap="40px">
+    <div class="title-text">
+      <div
+        *ngIf="loginMode"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxLayoutGap="10px"
+      >
+        <div>HAVE AN ACCOUNT?</div>
+        <div>JUST SIGN IN!</div>
+      </div>
+      <div
+        *ngIf="!loginMode"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxLayoutGap="10px"
+      >
+        <div>SIGN UP &</div>
+        <div>GET STARTED</div>
+      </div>
+    </div>
+
+    <form
+      (ngSubmit)="onSubmit()"
+      fxLayout="column"
+      fxLayoutGap="20px"
+      [formGroup]="loginForm"
+    >
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput name="email_id" id="email_id"/>
+      </mat-form-field>
+      <mat-form-field *ngIf="!loginMode">
+        <mat-label>Name</mat-label>
+        <input matInput name="name" id="name" formControlName="name"/>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          type="password"
+          name="password"
+          id="password"
+          formControlName="password"
+        />
+      </mat-form-field>
+      <mat-form-field *ngIf="!loginMode">
+        <mat-label>Confirm Password</mat-label>
+        <input
+          matInput
+          type="password"
+          name="password"
+          id="password"
+          formControlName="confirmPassword"
+        />
+        <span class="error-text" *ngIf="showConfirmPasswordError()">*Password didn't match</span>
+      </mat-form-field>
+      <div fxLayout="row" fxLayoutAlign="start">
+        <button
+          mat-flat-button
+          type="submit"
+          class="green-button"
+          [ngClass]="{'disabled':!loginForm.valid}"
+        >
+          {{ loginMode ? "SIGN IN" : "SIGN UP" }}
+        </button>
+      </div>
+    </form>
+  </div>
+  <div>
+    <span class="light-text">{{
+      loginMode ? "Don't have an account?" : "Already have an account?"
+    }}</span
+    ><span
+      class="green-text bold cursor-pointer ml-10"
+      (click)="changeMode()"
+      >{{ loginMode ? "SIGN UP" : "SIGN IN" }}</span
+    >
+  </div>
+</div>

@@ -1,5 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+:root
+{
+  --color-white: #ffffff;
+  --color-green: #23c994;
+  --color-blue: #286aa6;
+  --color-light-grey: #fafafa;
+  --color-border: rgba(0,0,0,.12);
+  --color-light-text: #8c949c;
+}
+
 html,
 body {
   height: 100%;
@@ -12,6 +23,10 @@ body {
 }
 
 /* margins */
+.ml-10 {
+  margin-left: 10px !important;
+}
+
 .mt-15 {
   margin-top:15px;
 }
@@ -23,7 +38,44 @@ body {
   margin-top: 30px
 }
 
+/*button*/
+
+button.disabled {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.green-button {
+  color: var(--color-green);
+  border: 1px solid var(--color-green) !important;
+  border-radius: 0% !important;
+  padding: 0px 20px !important;
+}
+
+/* text */
+.bold {
+  font-weight: bold;
+}
+.title-text {
+  font-size: 18px;
+  color: #343534;
+  font-weight: 500;
+}
+.green-text {
+  color: var(--color-green);
+}
+.blue-text {
+  color: var(--color-blue);
+}
+.light-text {
+  color: var(--color-light-text);
+}
+
 /* others */
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .mat-form-field-suffix {
   cursor: pointer;
 }

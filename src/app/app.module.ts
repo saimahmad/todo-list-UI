@@ -14,19 +14,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { LoginPageComponent } from './components/login-page/login-page.component';
+import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 
 
-import { LandingPageComponent } from './components/landing-page.component';
-import { PolicyGraphComponent } from './components/policy-graph/policy-graph.component';
-import { PolicyDetailsComponent } from './components/policy-details/policy-details.component';
-import { PolicyService } from './components/policy.service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginPageComponent,
+    TodoListComponent,
     LandingPageComponent,
-    PolicyGraphComponent,
-    PolicyDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +45,7 @@ import { PolicyService } from './components/policy.service';
     MatSnackBarModule,
     MatTabsModule
   ],
-  providers: [PolicyService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
