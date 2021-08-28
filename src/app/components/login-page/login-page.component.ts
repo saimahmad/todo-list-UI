@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 
 @Component({
@@ -10,9 +11,12 @@ import { LoginService } from './login.service';
 export class LoginPageComponent implements OnInit {
   loginMode: boolean = true;
   loginForm: FormGroup;
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService,private router: Router) {}
 
   ngOnInit(): void {
+    if(this.loginService.getAuthToken()) {
+      this.navigateToList()
+    }
     this.loginForm = new FormGroup({
       email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
@@ -47,6 +51,10 @@ export class LoginPageComponent implements OnInit {
     );
   }
 
+  navigateToList() {
+    this.router.navigate(['todo-list'])
+  }
+
   onSubmit() {
     let payload:any = {
       email: this.loginForm.get('email').value,
@@ -56,6 +64,7 @@ export class LoginPageComponent implements OnInit {
       this.loginService.login(payload).subscribe((data:any) => {
         this.loginService.setAuthToken(data.token)
         this.loginService.name = data.user.name
+        this.navigateToList()
       },(error) => {
         console.log(error)
       });
@@ -64,6 +73,7 @@ export class LoginPageComponent implements OnInit {
       payload.name = this.loginForm.get('name').value;
       this.loginService.signUp(payload).subscribe((data:any) => {
         this.loginService.setAuthToken(data.token)
+        this.navigateToList()
       },(error) => {
         console.log(error)
       })

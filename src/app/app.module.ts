@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
@@ -14,10 +14,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { DragDropModule } from '@angular/cdk/drag-drop'
+
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { LoginService } from './components/login-page/login.service';
+import { TodoListService } from './components/todo-list/todo-list.service';
+import { TokenInterceptorService } from './components/token-interceptor.service';
 
 
 
@@ -44,9 +48,14 @@ import { LoginService } from './components/login-page/login.service';
     MatButtonModule,
     MatRadioModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    DragDropModule
   ],
-  providers: [LoginService],
+  providers: [LoginService,TodoListService,{
+    provide: HTTP_INTERCEPTORS, 
+    useClass: TokenInterceptorService, 
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

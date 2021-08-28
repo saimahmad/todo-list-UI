@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Config } from 'src/app/config/config';
+import { Config } from '../../config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,6 @@ import { Config } from 'src/app/config/config';
 export class LoginService {
 
   baseUrl = Config.baseUrl;
-  authToken;
   name;
 
   constructor(private http: HttpClient) { }
@@ -23,9 +22,23 @@ export class LoginService {
     return this.http.post(url,payload);
   }
 
+  
+  logout() {
+    let url = this.baseUrl + '/users/logout'
+    return this.http.post(url,{})
+  }
+
+  getAuthToken() {
+    return localStorage.getItem('authToken');
+  }
+
+
   setAuthToken(token:string) {
-    this.authToken = token;
     localStorage.setItem('authToken',token);
     console.log(localStorage)
+  }
+
+  deleteAuthToken() {
+    localStorage.removeItem('authToken')
   }
 }

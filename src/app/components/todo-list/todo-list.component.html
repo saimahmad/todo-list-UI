@@ -1,1 +1,6 @@
-<p>todo-list works!</p>
+<div cdkDropList class="todo-list" (cdkDropListDropped)="drop($event)">
+    <div class="todo-box" *ngFor="let item of taskList" cdkDrag>
+      <div  *cdkDragPlaceholder></div>
+      {{item.description}}
+    </div>
+  </div>
