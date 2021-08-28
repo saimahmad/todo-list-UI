@@ -17,6 +17,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { LoginService } from './components/login-page/login.service';
 
 
 
@@ -45,7 +46,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
     MatSnackBarModule,
     MatTabsModule
   ],
-  providers: [],
+  providers: [LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
