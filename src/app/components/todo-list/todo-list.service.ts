@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Config } from '../../config/config';
 import { LoginService } from '../login-page/login.service';
 
@@ -8,7 +9,7 @@ import { LoginService } from '../login-page/login.service';
 })
 export class TodoListService {
 
-  baseUrl = Config.baseUrl;
+  baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
 

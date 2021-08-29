@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Config } from '../../config/config';
 
 @Injectable({
@@ -7,7 +8,7 @@ import { Config } from '../../config/config';
 })
 export class LoginService {
 
-  baseUrl = Config.baseUrl;
+  baseUrl = environment.baseUrl;
   name;
 
   constructor(private http: HttpClient) { }
