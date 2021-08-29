@@ -7,7 +7,7 @@ import { LoginService } from './login-page/login.service';
   providedIn: 'root'
 })
 export class TokenInterceptorService implements HttpInterceptor{
-
+//inserting auth token in headers of the api requests
   constructor(private loginService: LoginService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if(this.loginService.getAuthToken()) {

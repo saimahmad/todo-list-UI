@@ -7,7 +7,7 @@ import { LoginService } from './login-page/login.service';
   providedIn: 'root'
 })
 export class AuthGuardService {
-
+  //to check localstorage for token... if token is available then navigate to todolist page
   constructor(private router: Router, private loginService: LoginService) {}
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
       if(localStorage.getItem('authToken')) {
