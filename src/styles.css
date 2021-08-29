@@ -71,6 +71,10 @@ button.disabled {
   color: var(--color-light-text);
 }
 
+.red-text {
+  color: red;
+}
+
 /* others */
 .cursor-pointer {
   cursor: pointer;

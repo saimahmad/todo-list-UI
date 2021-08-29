@@ -15,6 +15,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DragDropModule } from '@angular/cdk/drag-drop'
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
@@ -49,7 +50,8 @@ import { TokenInterceptorService } from './components/token-interceptor.service'
     MatRadioModule,
     MatSnackBarModule,
     MatTabsModule,
-    DragDropModule
+    DragDropModule,
+    MatCheckboxModule
   ],
   providers: [LoginService,TodoListService,{
     provide: HTTP_INTERCEPTORS, 

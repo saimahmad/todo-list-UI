@@ -16,4 +16,19 @@ export class TodoListService {
     let url = this.baseUrl + '/tasks'
     return this.http.get(url)
   }
+
+  saveTask(payload) {
+    let url = this.baseUrl + '/tasks';
+    return this.http.post(url,payload)
+  }
+
+  orderTasks(payload) {
+    let url = this.baseUrl + '/tasks/order';
+    return this.http.post(url,payload)
+  }
+
+  deleteTask(id) {
+    let url = this.baseUrl + '/task/' + id;
+    return this.http.delete(url)
+  }
 }

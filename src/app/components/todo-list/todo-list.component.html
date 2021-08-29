@@ -1,6 +1,59 @@
-<div cdkDropList class="todo-list" (cdkDropListDropped)="drop($event)">
-    <div class="todo-box" *ngFor="let item of taskList" cdkDrag>
-      <div  *cdkDragPlaceholder></div>
-      {{item.description}}
+<div fxLayout="column" class="mt-30" fxLayoutGap="15px">
+  <div fxLayot="row" fxLayoutAlign="center">
+    <div class="add-row" fxLayout="row" fxLayoutAlign="end">
+      <button
+        mat-flat-button
+        type="button"
+        class="green-button"
+        (click)="addTask()"
+      >
+        <mat-icon>add</mat-icon>
+        ADD
+      </button>
     </div>
   </div>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <div cdkDropList class="todo-list" (cdkDropListDropped)="drop($event)">
+      <div
+        *ngIf="addActive"
+        fxLayout="row"
+        fxLayoutGap="10px"
+        fxLayoutAlign="start center"
+        class="todo-box"
+        cdkDrag
+        cdkDragDisabled="true"
+      >
+        <mat-form-field [style.width.%]="'100'">
+          <input matInput [(ngModel)]="addedValue" placeholder="Input Task" />
+        </mat-form-field>
+        <mat-icon class="green-text cursor-pointer" (click)="adjustOrderForSave()">check</mat-icon>
+        <mat-icon class="red-text cursor-pointer" (click)="cancelAdding()">close</mat-icon>
+      </div>
+      <div
+        class="todo-box"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        *ngFor="let item of taskList; let i = index"
+        cdkDrag
+        [cdkDragDisabled]="item.task.completed"
+      >
+        <mat-checkbox
+          color="primary"
+          [checked]="item.task.completed"
+          (change)="taskSelected($event.checked, i)"
+        >
+          <strike *ngIf="item.task.completed">{{
+            item.task.description
+          }}</strike>
+          <span *ngIf="!item.task.completed">{{
+            item.task.description
+          }}</span></mat-checkbox
+        >
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <mat-icon class="cursor-pointer edit-icon">edit</mat-icon>
+          <mat-icon class="cursor-pointer red-icon" (click)="deleteTask(item.task._id)">delete_outline</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
