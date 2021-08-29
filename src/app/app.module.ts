@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChartsModule } from 'ng2-charts';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -39,7 +38,6 @@ import { TokenInterceptorService } from './components/token-interceptor.service'
     AppRoutingModule,
     FormsModule, 
     ReactiveFormsModule,  
-    ChartsModule,
     FlexLayoutModule,
     HttpClientModule,
     MatInputModule,
