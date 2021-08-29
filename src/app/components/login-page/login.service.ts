@@ -32,7 +32,6 @@ export class LoginService {
     return localStorage.getItem('authToken');
   }
 
-
   setAuthToken(token:string) {
     localStorage.setItem('authToken',token);
     console.log(localStorage)

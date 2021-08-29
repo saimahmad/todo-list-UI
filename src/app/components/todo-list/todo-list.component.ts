@@ -1,5 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginService } from '../login-page/login.service';
 import { TodoListService } from './todo-list.service';
 
 @Component({
@@ -13,10 +15,23 @@ export class TodoListComponent implements OnInit {
   addActive = false;
   editValue:string = '';
   editActive = false;
-  constructor(private todoListService: TodoListService) { }
+  name:string = '';
+  constructor(private todoListService: TodoListService, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
+    this.name = this.loginService.name;
+    if(!this.name) {
+      this.getUserName()
+    }
     this.getTasksList()
+  }
+
+  getUserName() {
+    this.todoListService.getOwnProfile().subscribe((data:any) => {
+    this.name = data.name;
+    },error => [
+      console.log(error)
+    ])
   }
 
   getTasksList() {
@@ -132,6 +147,20 @@ export class TodoListComponent implements OnInit {
     this.todoListService.editTask(id,payload).subscribe((data:any) => {
       this.cancelEdit(i)
       this.getTasksList()
+    },error => {
+      console.log(error)
+    })
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['login'])
+  }
+
+
+  logout() {
+    this.loginService.logout().subscribe((data:any) => {
+      this.loginService.deleteAuthToken()
+      this.navigateToLogin();
     },error => {
       console.log(error)
     })

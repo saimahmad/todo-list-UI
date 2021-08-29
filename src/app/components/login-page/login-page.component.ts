@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 
@@ -11,7 +12,7 @@ import { LoginService } from './login.service';
 export class LoginPageComponent implements OnInit {
   loginMode: boolean = true;
   loginForm: FormGroup;
-  constructor(private loginService: LoginService,private router: Router) {}
+  constructor(private loginService: LoginService,private router: Router,private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     if(this.loginService.getAuthToken()) {
@@ -25,8 +26,8 @@ export class LoginPageComponent implements OnInit {
     });
   }
 
+  //to switch between login and signup mode
   changeMode() {
-    // this.loginMode = !this.loginMode;
     if (this.loginMode) {
       this.loginForm.get('name').setValidators([Validators.required]);
       this.loginForm.get('name').updateValueAndValidity();
@@ -43,6 +44,7 @@ export class LoginPageComponent implements OnInit {
     this.loginMode = !this.loginMode;
   }
 
+  //to show error in case of confirmation password and password does not matches
   showConfirmPasswordError() {
     return (
       this.loginForm.get('password').value !=
@@ -66,7 +68,7 @@ export class LoginPageComponent implements OnInit {
         this.loginService.name = data.user.name
         this.navigateToList()
       },(error) => {
-        console.log(error)
+        this.handleError(error.error)
       });
     }
     else {
@@ -75,8 +77,34 @@ export class LoginPageComponent implements OnInit {
         this.loginService.setAuthToken(data.token)
         this.navigateToList()
       },(error) => {
-        console.log(error)
+        this.handleError(error.error)
       })
     }
   }
+
+  handleError(error:string) {
+    let msg:string = ''
+    if(error == 'unable to login') {
+      msg = "Invalid Credentials!"
+    }
+    else if(error.includes("Email is invalid")) {
+      msg = "Invalid Email!"
+    }
+    else if(error.includes("duplicate key")) {
+      msg = "Email already exist!"
+    }
+    else{
+      msg = error;
+    }
+    this.openErrorSnackbar(msg)
+  }
+    //to show error popup
+    openErrorSnackbar(error: string) {
+      this.snackBar.open(error, '', {
+        duration: 2000,
+        horizontalPosition: "center",
+        verticalPosition: "top",
+        panelClass: ["red-snackbar"]
+      });
+    }
 }

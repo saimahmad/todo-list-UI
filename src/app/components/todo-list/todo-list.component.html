@@ -1,16 +1,21 @@
 <div fxLayout="column" class="mt-30" fxLayoutGap="15px">
   <div fxLayot="row" fxLayoutAlign="center">
-    <div class="add-row" fxLayout="row" fxLayoutAlign="end">
-      <button
-        mat-flat-button
-        type="button"
-        class="green-button"
-        (click)="addTask()"
-        [ngClass]="{ disabled: addActive || editActive }"
-      >
-        <mat-icon>add</mat-icon>
-        ADD
-      </button>
+
+    <div class="add-row" fxLayout="row" fxLayoutAlign="space-between end">
+        <div class="title-text">Hi, {{name}}</div>
+      <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign = "start end">
+        <div class="blue-text cursor-pointer" (click)="logout()"><u>logout</u></div>
+          <button
+            mat-flat-button
+            type="button"
+            class="green-button"
+            (click)="addTask()"
+            [ngClass]="{ disabled: addActive || editActive }"
+          >
+            <mat-icon>add</mat-icon>
+            ADD
+          </button>
+      </div>
     </div>
   </div>
   <div fxLayout="row" fxLayoutAlign="center">

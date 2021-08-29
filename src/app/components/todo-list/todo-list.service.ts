@@ -36,4 +36,9 @@ export class TodoListService {
     let url = this.baseUrl + '/task/' + id;
     return this.http.patch(url,payload)
   }
+
+  getOwnProfile() {
+    let url = this.baseUrl + '/users/me';
+    return this.http.get(url)
+  }
 }
