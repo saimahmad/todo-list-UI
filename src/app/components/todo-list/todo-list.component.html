@@ -6,7 +6,7 @@
         type="button"
         class="green-button"
         (click)="addTask()"
-        [ngClass]="{'disabled':addActive || editActive}"
+        [ngClass]="{ disabled: addActive || editActive }"
       >
         <mat-icon>add</mat-icon>
         ADD
@@ -27,8 +27,14 @@
         <mat-form-field [style.width.%]="'100'">
           <input matInput [(ngModel)]="addedValue" placeholder="Input Task" />
         </mat-form-field>
-        <mat-icon class="green-text cursor-pointer" (click)="adjustOrderForSave()">check</mat-icon>
-        <mat-icon class="red-text cursor-pointer" (click)="cancelAdding()">close</mat-icon>
+        <mat-icon
+          class="green-text cursor-pointer"
+          (click)="adjustOrderForSave()"
+          >check</mat-icon
+        >
+        <mat-icon class="red-text cursor-pointer" (click)="cancelAdding()"
+          >close</mat-icon
+        >
       </div>
       <div
         class="todo-box"
@@ -39,7 +45,7 @@
         [cdkDragDisabled]="item.task.completed"
       >
         <mat-checkbox
-        *ngIf="!item.edit"
+          *ngIf="!item.edit"
           color="primary"
           [checked]="item.task.completed"
           (change)="taskSelected($event.checked, i)"
@@ -52,16 +58,40 @@
           }}</span></mat-checkbox
         >
         <mat-form-field *ngIf="item.edit" [style.width.%]="'100'">
-            <input matInput [(ngModel)]="editValue" placeholder="Input Task" />
-          </mat-form-field>
-        <div *ngIf="!item.edit" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-          <mat-icon class="cursor-pointer edit-icon" [ngClass]="{'ico-disabled':addActive || editActive}" (click)="editTask(i)">edit</mat-icon>
-          <mat-icon class="cursor-pointer red-icon" [ngClass]="{'ico-disabled':addActive || editActive}" (click)="deleteTask(item.task._id)">delete_outline</mat-icon>
+          <input matInput [(ngModel)]="editValue" placeholder="Input Task" />
+        </mat-form-field>
+        <div
+          *ngIf="!item.edit"
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          fxLayoutGap="10px"
+        >
+          <mat-icon
+            class="cursor-pointer edit-icon"
+            [ngClass]="{ 'ico-disabled': addActive || editActive }"
+            (click)="editTask(i)"
+            >edit</mat-icon
+          >
+          <mat-icon
+            class="cursor-pointer red-icon"
+            [ngClass]="{ 'ico-disabled': addActive || editActive }"
+            (click)="deleteTask(item.task._id)"
+            >delete_outline</mat-icon
+          >
         </div>
-        <div *ngIf="item.edit" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-            <mat-icon class="green-text cursor-pointer" (click)="saveEdit(i)">check</mat-icon>
-            <mat-icon class="red-text cursor-pointer" (click)="cancelEdit(i)">close</mat-icon>
-          </div>
+        <div
+          *ngIf="item.edit"
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          fxLayoutGap="10px"
+        >
+          <mat-icon class="green-text cursor-pointer" (click)="saveEdit(i)"
+            >check</mat-icon
+          >
+          <mat-icon class="red-text cursor-pointer" (click)="cancelEdit(i)"
+            >close</mat-icon
+          >
+        </div>
       </div>
     </div>
   </div>
