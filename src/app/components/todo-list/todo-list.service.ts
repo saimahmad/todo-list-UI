@@ -31,4 +31,9 @@ export class TodoListService {
     let url = this.baseUrl + '/task/' + id;
     return this.http.delete(url)
   }
+
+  editTask(id,payload) {
+    let url = this.baseUrl + '/task/' + id;
+    return this.http.patch(url,payload)
+  }
 }

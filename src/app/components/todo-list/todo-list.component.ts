@@ -11,6 +11,8 @@ export class TodoListComponent implements OnInit {
   taskList:any = [];
   addedValue:string = '';
   addActive = false;
+  editValue:string = '';
+  editActive = false;
   constructor(private todoListService: TodoListService) { }
 
   ngOnInit(): void {
@@ -105,6 +107,30 @@ export class TodoListComponent implements OnInit {
 
   deleteTask(id) {
     this.todoListService.deleteTask(id).subscribe((data:any) => {
+      this.getTasksList()
+    },error => {
+      console.log(error)
+    })
+  }
+
+  editTask(index) {
+    this.editValue = this.taskList[index].task.description;
+    this.taskList[index].edit = true;
+    this.editActive = true;
+  }
+
+  cancelEdit(index) {
+    this.taskList[index].edit = false;
+    this.editActive = false;
+  }
+
+  saveEdit(i) {
+    let id = this.taskList[i].task._id;
+    let payload = {
+      description: this.editValue
+    }
+    this.todoListService.editTask(id,payload).subscribe((data:any) => {
+      this.cancelEdit(i)
       this.getTasksList()
     },error => {
       console.log(error)
