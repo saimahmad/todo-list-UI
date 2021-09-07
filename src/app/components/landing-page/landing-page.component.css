@@ -1,8 +1,10 @@
 .landing-page .login-wrapper {
-    height: 70vh;
+    min-height: 70vh;
+    height: auto;
     width: 392px;
     border-radius: 2px;
     box-shadow: 0 10px 20px 0 rgba(210, 210, 210, 0.5);
     background-color: var(--color-white);
     margin-top:15vh;
+    margin-bottom:15vh;
   }
